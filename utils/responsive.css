@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+/* ════════════════════════════════════════
+   MEDIA QUERIES — DESKTOP (≥ 992px)
+════════════════════════════════════════ */
+@media (min-width: 992px) {
+
+  :root {
+    --container-pad: 2.5rem;
+  }
+
+  /* Navegação */
+  .nav-links  { display: flex; }
+  .nav-burger { display: none; }
+
+  /* Hero */
+  .hero { align-items: center; padding: 0 var(--container-pad); }
+  .hero-callouts { display: flex; }
+  .hero-content { padding-bottom: 0; }
+
+  /* Serviços — 4 colunas */
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Projectos — grid editorial */
+  .projects-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  .project-featured {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-featured .project-visual {
+    flex: 1;
+    height: auto;
+    min-height: 280px;
+  }
+
+  /* Sobre — 2 colunas */
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  /* Contacto — 2 colunas */
+  .contact-container {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--space-20);
+  }
+
+  /* Rodapé — 3 colunas */
+  .footer-container {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   MEDIA QUERIES — DESKTOP XL (≥ 1280px)
+════════════════════════════════════════ */
+@media (min-width: 1280px) {
+
+  .section-title { font-size: var(--text-4xl); }
+  .contact-title { font-size: var(--text-3xl); }
+
+}
