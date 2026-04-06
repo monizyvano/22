@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Comercial — 22 Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════════════
+       PROPOSTA COMERCIAL — 22 STUDIO
+       Optimizado para impressão A4 (PDF)
+    ════════════════════════════════════════ */
+    :root {
+      --preto:     #0A0A0A;
+      --branco:    #FAFAF8;
+      --creme:     #F2EDE4;
+      --terracota: #C4622D;
+      --tc-cl:     #F2E6DC;
+      --cinza:     #6B6B65;
+      --cinza-200: #E8E6E0;
+      --ouro:      #C9A84C;
+      --verde:     #2D6B4E;
+      --f-display: 'Cormorant Garamond', Georgia, serif;
+      --f-body:    'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--f-body);
+      background: #E5E5E5;
+      color: var(--preto);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════════════════════════════════
+       BARRA DE CONTROLO (ecrã apenas)
+    ════════════════════════════════════════ */
+    .controls {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+    .ctrl-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 100px;
+      font-family: var(--f-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .ctrl-print { background: var(--preto); color: white; }
+    .ctrl-print:hover { background: var(--terracota); }
+    .ctrl-back { background: white; color: var(--preto); border: 1.5px solid var(--cinza-200); }
+    .ctrl-back:hover { border-color: var(--preto); }
+
+    /* ════════════════════════════════════════
+       PÁGINA A4
+    ════════════════════════════════════════ */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: white;
+      margin: 2rem auto;
+      padding: 0;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════
+       CABEÇALHO DA PROPOSTA
+    ════════════════════════════════════════ */
+    .prop-header {
+      background: var(--preto);
+      padding: 2.5rem 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .prop-header::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(196,98,45,0.2) 0%, transparent 70%);
+    }
+    .prop-header::after {
+      content: '22';
+      position: absolute;
+      right: 2rem;
+      bottom: -1rem;
+      font-family: var(--f-display);
+      font-size: 8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -0.1em;
+      line-height: 1;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    .logo-wrap {}
+    .logo-num {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--terracota);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .logo-studio {
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.15rem;
+    }
+
+    .prop-ref {
+      text-align: right;
+    }
+    .ref-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracota);
+    }
+    .ref-date {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.25rem;
+    }
+    .ref-val {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.25);
+      margin-top: 0.15rem;
+    }
+
+    .prop-title-wrap {
+      position: relative;
+      z-index: 2;
+    }
+    .prop-doc-type {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 0.4rem;
+    }
+    .prop-title {
+      font-family: var(--f-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: white;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .prop-title em { font-style: italic; color: var(--terracota); }
+
+    /* ════════════════════════════════════════
+       BLOCO CLIENTE / EMPRESA
+    ════════════════════════════════════════ */
+    .parties-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--cinza-200);
+    }
+    .party-block {
+      padding: 1.5rem 2rem;
+    }
+    .party-block:first-child {
+      border-right: 1px solid var(--cinza-200);
+      background: var(--creme);
+    }
+    .party-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 0.75rem;
+    }
+    .party-name {
+      font-family: var(--f-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .party-detail {
+      font-size: 0.78rem;
+      color: var(--cinza);
+      line-height: 1.8;
+    }
+    .party-detail strong { color: var(--preto); font-weight: 500; }
+
+    /* Campo editável (ecrã) */
+    [contenteditable="true"] {
+      outline: none;
+      border-bottom: 1px dashed var(--cinza-200);
+      min-width: 120px;
+      display: inline-block;
+    }
+    [contenteditable="true"]:focus {
+      border-bottom-color: var(--terracota);
+      background: rgba(196,98,45,0.04);
+    }
+
+    /* ════════════════════════════════════════
+       TABELA DE SERVIÇOS
+    ════════════════════════════════════════ */
+    .section-block {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--cinza-200);
+    }
+    .section-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 1rem;
+    }
+
+    table.servicos {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    table.servicos thead tr {
+      background: var(--preto);
+      color: white;
+    }
+    table.servicos thead th {
+      padding: 0.6rem 0.85rem;
+      text-align: left;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    table.servicos thead th:last-child { text-align: right; }
+    table.servicos tbody tr {
+      border-bottom: 1px solid var(--cinza-200);
+      transition: background 0.15s;
+    }
+    table.servicos tbody tr:hover { background: var(--creme); }
+    table.servicos tbody td {
+      padding: 0.75rem 0.85rem;
+      vertical-align: top;
+    }
+    table.servicos tbody td:last-child { text-align: right; font-weight: 600; color: var(--terracota); }
+    .item-name { font-weight: 500; }
+    .item-desc { font-size: 0.72rem; color: var(--cinza); margin-top: 0.2rem; line-height: 1.4; }
+
+    .tfoot-row {
+      background: var(--creme);
+    }
+    .tfoot-row td {
+      padding: 0.6rem 0.85rem;
+      font-size: 0.78rem;
+    }
+    .tfoot-total {
+      background: var(--preto) !important;
+    }
+    .tfoot-total td {
+      padding: 0.85rem 0.85rem;
+      color: white;
+      font-weight: 600;
+    }
+    .tfoot-total td:last-child { color: var(--terracota); font-size: 1rem; }
+
+    /* ════════════════════════════════════════
+       TIMELINE / FASES
+    ════════════════════════════════════════ */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .tl-item {
+      padding: 1rem 1.25rem 1.25rem;
+      border-right: 1px solid var(--cinza-200);
+      position: relative;
+    }
+    .tl-item:last-child { border-right: none; }
+    .tl-num {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--cinza-200);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .tl-phase {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .tl-days {
+      font-size: 0.65rem;
+      color: var(--terracota);
+      font-weight: 600;
+    }
+    .tl-desc {
+      font-size: 0.68rem;
+      color: var(--cinza);
+      line-height: 1.5;
+      margin-top: 0.35rem;
+    }
+
+    /* ════════════════════════════════════════
+       CONDIÇÕES DE PAGAMENTO
+    ════════════════════════════════════════ */
+    .payment-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .payment-block {
+      background: var(--creme);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      border-left: 3px solid var(--terracota);
+    }
+    .payment-pct {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--terracota);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .payment-when {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 0.25rem 0 0.15rem;
+    }
+    .payment-detail {
+      font-size: 0.68rem;
+      color: var(--cinza);
+      line-height: 1.5;
+    }
+
+    /* ════════════════════════════════════════
+       O QUE ESTÁ INCLUÍDO
+    ════════════════════════════════════════ */
+    .includes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+    }
+    .inc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+    .inc-item::before {
+      content: '✓';
+      color: var(--verde);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .exc-item::before { content: '✗'; color: #e24b4a !important; }
+
+    /* ════════════════════════════════════════
+       ASSINATURAS
+    ════════════════════════════════════════ */
+    .signatures-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding: 2rem 2.5rem;
+    }
+    .sig-block {}
+    .sig-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cinza);
+      margin-bottom: 2.5rem;
+    }
+    .sig-line {
+      border-top: 1px solid var(--preto);
+      padding-top: 0.5rem;
+    }
+    .sig-name { font-size: 0.78rem; font-weight: 600; }
+    .sig-role { font-size: 0.68rem; color: var(--cinza); }
+    .sig-date { font-size: 0.68rem; color: var(--cinza); margin-top: 0.25rem; }
+
+    /* ════════════════════════════════════════
+       RODAPÉ
+    ════════════════════════════════════════ */
+    .prop-footer {
+      background: var(--preto);
+      padding: 1rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+    }
+    .footer-brand strong { color: var(--terracota); }
+    .footer-contact {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+      text-align: right;
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE — Ecrã
+    ════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .page {
+        width: 96vw;
+        min-height: auto;
+        margin: 1rem auto;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      }
+      .prop-header { padding: 1.5rem 1.25rem 1.25rem; }
+      .prop-title { font-size: 1.75rem; }
+      .prop-title em { font-size: inherit; }
+      .parties-row { grid-template-columns: 1fr; }
+      .party-block:first-child { border-right: none; border-bottom: 1px solid var(--cinza-200); }
+      .party-block { padding: 1rem 1.25rem; }
+      .section-block { padding: 1rem 1.25rem; }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
+      .tl-item { border-right: none; border-bottom: 1px solid var(--cinza-200); padding: 1rem 0.75rem 1.25rem; }
+      .tl-item:last-child { border-bottom: none; }
+      .payment-row { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+      .includes-grid { grid-template-columns: 1fr; }
+      .signatures-row { padding: 1.5rem 1.25rem; gap: 2rem; grid-template-columns: 1fr; }
+      .prop-footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1rem 1.25rem; }
+      .footer-contact { text-align: center !important; }
+      div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+      div[style*="grid-template-columns:1fr 1fr;border"] { grid-template-columns: 1fr !important; }
+      .section-block[style*="border-right"] { border-right: none !important; border-bottom: 1px solid var(--cinza-200); }
+      .controls { bottom: 1rem; right: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .prop-header { padding: 1.25rem 1rem 1rem; }
+      .prop-title { font-size: 1.3rem; }
+      .header-top { flex-direction: column; gap: 0.75rem; }
+      .prop-ref { text-align: left; }
+      .prop-header::after { display: none; }
+      .party-block { padding: 0.85rem 1rem; }
+      .section-block { padding: 0.85rem 1rem; }
+      .timeline-grid { grid-template-columns: 1fr; }
+      table.servicos { display: block; overflow-x: auto; font-size: 0.7rem; }
+      table.servicos thead th { padding: 0.4rem 0.5rem; font-size: 0.5rem; }
+      table.servicos tbody td { padding: 0.5rem; }
+      .payment-block { padding: 0.75rem 1rem; }
+      .signatures-row { padding: 1.25rem 1rem; }
+      .prop-footer { padding: 0.75rem 1rem; }
+      .controls { bottom: 0.75rem; right: 0.75rem; }
+    }
+
+    /* ════════════════════════════════════════
+       PRINT STYLES — esconde controlos
+    ════════════════════════════════════════ */
+    @media print {
+      body { background: white; }
+      .controls { display: none !important; }
+      .page {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        min-height: auto;
+      }
+      [contenteditable="true"] { border-bottom: none; }
+      @page { margin: 0; size: A4; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════ CONTROLOS DE ECRÃ ══════ -->
+  <div class="controls">
+    <button class="ctrl-btn ctrl-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    <button class="ctrl-btn ctrl-back" onclick="window.history.back()">← Voltar</button>
+  </div>
+
+  <!-- ══════ PÁGINA A4 ══════ -->
+  <div class="page">
+
+    <!-- CABEÇALHO -->
+    <div class="prop-header">
+      <div class="header-top">
+        <div class="logo-wrap">
+          <div class="logo-num">22</div>
+          <div class="logo-studio">Studio · Luanda, Angola</div>
+        </div>
+        <div class="prop-ref">
+          <div class="ref-num">REF-<span contenteditable="true">00001</span></div>
+          <div class="ref-date">Luanda, <span contenteditable="true">28 de Março de 2025</span></div>
+          <div class="ref-val">Válida até: <span contenteditable="true">12 de Abril de 2025</span></div>
+        </div>
+      </div>
+      <div class="prop-title-wrap">
+        <p class="prop-doc-type">Proposta Comercial</p>
+        <h1 class="prop-title">
+          Proposta para<br>
+          <em contenteditable="true">Nome do Cliente / Empresa</em>
+        </h1>
+      </div>
+    </div>
+
+    <!-- PARTES -->
+    <div class="parties-row">
+      <div class="party-block">
+        <p class="party-label">Prestador de Serviços</p>
+        <p class="party-name">22 Studio</p>
+        <div class="party-detail">
+          <strong>Email:</strong> hello@22studio.ao<br>
+          <strong>WhatsApp:</strong> +244 938 711 363<br>
+          <strong>Web:</strong> www.22studio.ao<br>
+          <strong>Localização:</strong> Luanda, Angola
+        </div>
+      </div>
+      <div class="party-block">
+        <p class="party-label">Cliente</p>
+        <p class="party-name" contenteditable="true">Nome da Empresa / Cliente</p>
+        <div class="party-detail">
+          <strong>Contacto:</strong> <span contenteditable="true">+244 9XX XXX XXX</span><br>
+          <strong>Email:</strong> <span contenteditable="true">email@exemplo.com</span><br>
+          <strong>Sector:</strong> <span contenteditable="true">Área de Negócio</span><br>
+          <strong>Localização:</strong> <span contenteditable="true">Luanda, Angola</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIÇÃO DO PROJECTO -->
+    <div class="section-block">
+      <p class="section-label">Descrição do Projecto</p>
+      <p style="font-size:0.85rem; color:var(--cinza); line-height:1.75;" contenteditable="true">
+        Desenvolvimento de [tipo de projecto] para [nome do cliente], com o objectivo de [objectivo principal do projecto]. O projecto incluirá design moderno mobile-first, animações suaves e integração com as ferramentas digitais necessárias para o contexto angolano.
+      </p>
+    </div>
+
+    <!-- TABELA DE SERVIÇOS -->
+    <div class="section-block">
+      <p class="section-label">Serviços e Valores</p>
+      <table class="servicos">
+        <thead>
+          <tr>
+            <th style="width:40%">Serviço / Entregável</th>
+            <th style="width:30%">Descrição</th>
+            <th style="width:15%">Prazo</th>
+            <th style="width:15%">Valor (Kz)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="item-name" contenteditable="true">Landing Page Premium</div>
+              <div class="item-desc" contenteditable="true">Design mobile-first com animações</div>
+            </td>
+            <td style="font-size:0.72rem;color:var(--cinza)" contenteditable="true">1 a 5 secções, formulário WhatsApp, responsive</td>
+            <td style="font-size:0.78rem" contenteditable="true">7 dias</td>
+            <td contenteditable="true">80.000</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-name" contenteditable="true">SEO + Google Analytics</div>
+              <div class="item-desc" contenteditable="true">Optimização para motores de pesquisa</div>
+            </td>
+            <td style="font-size:0.72rem;color:var(--cinza)" contenteditable="true">Meta tags, sitemap, Analytics configurado</td>
+            <td style="font-size:0.78rem" contenteditable="true">Incluído</td>
+            <td contenteditable="true">15.000</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="item-name" contenteditable="true">Domínio .ao + Hosting 1 ano</div>
+              <div class="item-desc" contenteditable="true">Registo e configuração de domínio</div>
+            </td>
+            <td style="font-size:0.72rem;color:var(--cinza)" contenteditable="true">Domínio personalizado + alojamento</td>
+            <td style="font-size:0.78rem" contenteditable="true">3 dias</td>
+            <td contenteditable="true">10.000</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot-row">
+            <td colspan="3" style="font-size:0.72rem;color:var(--cinza)">Subtotal (sem urgência)</td>
+            <td style="text-align:right;font-weight:600" contenteditable="true">105.000</td>
+          </tr>
+          <tr class="tfoot-row">
+            <td colspan="3" style="font-size:0.72rem;color:var(--cinza)">Taxa de urgência (× <span contenteditable="true">1,0</span>)</td>
+            <td style="text-align:right;font-weight:600" contenteditable="true">—</td>
+          </tr>
+          <tr class="tfoot-total">
+            <td colspan="3"><strong>TOTAL ESTIMADO</strong><br><span style="font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.4)">≈ <span contenteditable="true">117</span> USD · Válido 15 dias</span></td>
+            <td style="text-align:right" contenteditable="true">105.000 Kz</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="section-block">
+      <p class="section-label">Fases do Projecto</p>
+      <div class="timeline-grid">
+        <div class="tl-item">
+          <div class="tl-num">01</div>
+          <div class="tl-phase">Briefing</div>
+          <div class="tl-days" contenteditable="true">Dia 1–2</div>
+          <div class="tl-desc">Recolha de requisitos, referências e materiais do cliente.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">02</div>
+          <div class="tl-phase">Design</div>
+          <div class="tl-days" contenteditable="true">Dia 2–4</div>
+          <div class="tl-desc">Protótipo no Figma para aprovação antes do desenvolvimento.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">03</div>
+          <div class="tl-phase">Desenvolvimento</div>
+          <div class="tl-days" contenteditable="true">Dia 4–6</div>
+          <div class="tl-desc">Codificação, testes e optimização em todos os dispositivos.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">04</div>
+          <div class="tl-phase">Lançamento</div>
+          <div class="tl-days" contenteditable="true">Dia 7</div>
+          <div class="tl-desc">Publicação, configuração de domínio e entrega com suporte.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGAMENTO + INCLUI -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--cinza-200)">
+
+      <div class="section-block" style="border-right:1px solid var(--cinza-200)">
+        <p class="section-label">Condições de Pagamento</p>
+        <div class="payment-row" style="grid-template-columns:1fr 1fr;gap:0.75rem">
+          <div class="payment-block">
+            <div class="payment-pct">50%</div>
+            <div class="payment-when">Início do projecto</div>
+            <div class="payment-detail">Pagamento inicial para arranque imediato do trabalho.</div>
+          </div>
+          <div class="payment-block">
+            <div class="payment-pct">50%</div>
+            <div class="payment-when">Entrega final</div>
+            <div class="payment-detail">Após aprovação e publicação do projecto pelo cliente.</div>
+          </div>
+        </div>
+        <p style="font-size:0.68rem;color:var(--cinza);margin-top:0.75rem;line-height:1.5">
+          Métodos: Multicaixa Express · Transferência Bancária · TPA<br>
+          Em caso de cancelamento após início, o valor pago não é reembolsável.
+        </p>
+      </div>
+
+      <div class="section-block">
+        <p class="section-label">O Que Está Incluído</p>
+        <div class="includes-grid">
+          <div class="inc-item">Design mobile-first responsivo</div>
+          <div class="inc-item">Código limpo e documentado</div>
+          <div class="inc-item"><span contenteditable="true">3</span> revisões incluídas</div>
+          <div class="inc-item">Suporte <span contenteditable="true">30</span> dias pós-entrega</div>
+          <div class="inc-item">Publicação online</div>
+          <div class="inc-item">Formação básica de uso</div>
+          <div class="inc-item">Compatível Chrome/Safari/Firefox</div>
+          <div class="inc-item">Certificado HTTPS (SSL)</div>
+        </div>
+        <p class="section-label" style="margin-top:0.75rem;margin-bottom:0.5rem">Não incluído</p>
+        <div class="includes-grid">
+          <div class="inc-item exc-item">Conteúdo (textos, fotos)</div>
+          <div class="inc-item exc-item">Traduções de idiomas</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ASSINATURAS -->
+    <div class="signatures-row">
+      <div class="sig-block">
+        <p class="sig-label">Prestador de Serviços</p>
+        <div class="sig-line">
+          <div class="sig-name">22 Studio</div>
+          <div class="sig-role">Desenvolvimento Web & Mobile · Angola</div>
+          <div class="sig-date">Data: _____ / _____ / _________</div>
+        </div>
+      </div>
+      <div class="sig-block">
+        <p class="sig-label">Cliente — Aprovação</p>
+        <div class="sig-line">
+          <div class="sig-name" contenteditable="true">Nome do Responsável</div>
+          <div class="sig-role" contenteditable="true">Cargo · Empresa</div>
+          <div class="sig-date">Data: _____ / _____ / _________</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="prop-footer">
+      <div class="footer-brand">
+        <strong>22 Studio</strong> · Mestre Construtor Digital 🇦🇴<br>
+        Luanda, Angola — hello@22studio.ao
+      </div>
+      <div class="footer-contact">
+        +244 938 711 363 · www.22studio.ao<br>
+        Proposta válida por 15 dias a partir da emissão.
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+</body>
+</html>

@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orçamentador — 22 Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════════════
+       TOKENS DE DESIGN — 22 STUDIO
+    ════════════════════════════════════════ */
+    :root {
+      --preto:       #0A0A0A;
+      --preto-soft:  #111111;
+      --branco:      #FAFAF8;
+      --creme:       #F2EDE4;
+      --terracota:   #C4622D;
+      --terracota-h: #a8521f;
+      --terracota-cl:#F2E6DC;
+      --cinza-200:   #E8E6E0;
+      --cinza-400:   #AEABA0;
+      --cinza-600:   #6B6B65;
+      --ouro:        #C9A84C;
+      --verde:       #2D6B4E;
+      --verde-cl:    #D4EAE0;
+      --f-display:   'Cormorant Garamond', Georgia, serif;
+      --f-body:      'Outfit', sans-serif;
+      --ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --radius:      12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      background: var(--branco);
+      color: var(--preto);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    :focus-visible { outline: 2px solid var(--terracota); outline-offset: 3px; }
+
+    /* ════════════════════════════════════════
+       HEADER
+    ════════════════════════════════════════ */
+    .header {
+      background: var(--preto);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+    .logo-num {
+      font-family: var(--f-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--terracota);
+      letter-spacing: -0.05em;
+    }
+    .logo-text {
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      background: rgba(196,98,45,0.1);
+      border: 1px solid rgba(196,98,45,0.25);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+    }
+
+    /* ════════════════════════════════════════
+       PROGRESSO
+    ════════════════════════════════════════ */
+    .progress-wrap {
+      background: var(--preto);
+      padding: 1.5rem 2rem 2rem;
+    }
+    .progress-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .step-dot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      position: relative;
+      flex: 1;
+    }
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.3);
+      transition: all 0.4s var(--ease);
+      position: relative;
+      z-index: 2;
+    }
+    .step-dot.active .step-circle {
+      background: var(--terracota);
+      border-color: var(--terracota);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(196,98,45,0.2);
+    }
+    .step-dot.done .step-circle {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: white;
+    }
+    .step-label {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .step-dot.active .step-label { color: var(--terracota); }
+    .step-dot.done .step-label { color: rgba(255,255,255,0.5); }
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 1.4rem;
+      transition: background 0.4s;
+      position: relative;
+      top: -1px;
+    }
+    .step-line.done { background: var(--verde); }
+    .step-line.active { background: var(--terracota); }
+
+    /* ════════════════════════════════════════
+       CONTAINER PRINCIPAL
+    ════════════════════════════════════════ */
+    .main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ════════════════════════════════════════
+       PASSOS (steps)
+    ════════════════════════════════════════ */
+    .step-panel {
+      display: none;
+      animation: fadeIn 0.4s var(--ease);
+    }
+    .step-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .step-title em { font-style: italic; color: var(--terracota); }
+    .step-sub {
+      font-size: 0.875rem;
+      color: var(--cinza-600);
+      margin-bottom: 2rem;
+    }
+
+    /* ════════════════════════════════════════
+       FORMULÁRIO
+    ════════════════════════════════════════ */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-grid .span-2 { grid-column: span 2; }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cinza-600);
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--creme);
+      border: 1.5px solid var(--cinza-200);
+      border-radius: var(--radius);
+      font-family: var(--f-body);
+      font-size: 0.9rem;
+      color: var(--preto);
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder { color: var(--cinza-400); }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--terracota);
+      background: white;
+    }
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6B65' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    /* ════════════════════════════════════════
+       SELECÇÃO DE SERVIÇO (cards)
+    ════════════════════════════════════════ */
+    .service-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-card {
+      border: 2px solid var(--cinza-200);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+      position: relative;
+      background: white;
+    }
+    .service-card:hover {
+      border-color: var(--terracota);
+      background: var(--terracota-cl);
+    }
+    .service-card.selected {
+      border-color: var(--terracota);
+      background: var(--terracota-cl);
+      box-shadow: 0 0 0 1px var(--terracota);
+    }
+    .service-card.selected .card-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .card-check {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 20px;
+      height: 20px;
+      background: var(--terracota);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.25s var(--ease);
+    }
+    .card-check::after {
+      content: '✓';
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    .card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .card-name {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+    .card-desc {
+      font-size: 0.75rem;
+      color: var(--cinza-600);
+      line-height: 1.5;
+    }
+    .card-price {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--terracota);
+    }
+
+    /* ════════════════════════════════════════
+       EXTRAS (checkboxes)
+    ════════════════════════════════════════ */
+    .extras-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+    .extra-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--cinza-200);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+      user-select: none;
+    }
+    .extra-item:hover { border-color: var(--terracota); }
+    .extra-item.selected {
+      border-color: var(--terracota);
+      background: var(--terracota-cl);
+    }
+    .extra-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--cinza-400);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .extra-item.selected .extra-checkbox {
+      background: var(--terracota);
+      border-color: var(--terracota);
+    }
+    .extra-item.selected .extra-checkbox::after {
+      content: '✓';
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    .extra-info {}
+    .extra-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+    .extra-price {
+      font-size: 0.7rem;
+      color: var(--terracota);
+      font-weight: 600;
+    }
+
+    /* ════════════════════════════════════════
+       URGÊNCIA SELECTOR
+    ════════════════════════════════════════ */
+    .urgency-btns {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .urgency-btn {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid var(--cinza-200);
+      border-radius: var(--radius);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      background: white;
+      font-family: var(--f-body);
+    }
+    .urgency-btn:hover { border-color: var(--terracota); }
+    .urgency-btn.selected {
+      border-color: var(--terracota);
+      background: var(--terracota-cl);
+    }
+    .ub-icon { font-size: 1.25rem; margin-bottom: 0.3rem; }
+    .ub-name { font-size: 0.8rem; font-weight: 600; }
+    .ub-desc { font-size: 0.68rem; color: var(--cinza-600); margin-top: 0.2rem; }
+    .ub-mult { font-size: 0.7rem; color: var(--terracota); font-weight: 700; margin-top: 0.25rem; }
+
+    /* ════════════════════════════════════════
+       RESUMO DO ORÇAMENTO
+    ════════════════════════════════════════ */
+    .summary-card {
+      background: var(--preto);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .summary-header {
+      padding: 1.5rem 1.75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .summary-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 0.35rem;
+    }
+    .summary-client-name {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+    .summary-ref {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.25rem;
+    }
+
+    .summary-body { padding: 1.5rem 1.75rem; }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .row-label { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+    .row-value { font-size: 0.82rem; color: white; font-weight: 500; text-align: right; }
+    .row-value.highlight { color: var(--ouro); }
+
+    .summary-extras {
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+    }
+    .extras-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 0.5rem;
+    }
+    .extra-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      padding: 0.25rem 0;
+    }
+    .extra-row-price { color: var(--ouro); }
+
+    .summary-total {
+      background: rgba(196,98,45,0.08);
+      border: 1px solid rgba(196,98,45,0.2);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .total-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .total-amount {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--terracota);
+      letter-spacing: -0.03em;
+    }
+    .total-usd {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.15rem;
+      text-align: right;
+    }
+
+    /* Validade e notas */
+    .summary-footer {
+      padding: 1rem 1.75rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .summary-note {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.6;
+      margin-bottom: 0.4rem;
+    }
+    .summary-note strong { color: rgba(255,255,255,0.5); }
+
+    /* ════════════════════════════════════════
+       BOTÕES DE ACÇÃO
+    ════════════════════════════════════════ */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 1rem 0.75rem;
+      border-radius: var(--radius);
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+      border: none;
+    }
+    .action-btn .btn-icon { font-size: 1.25rem; }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    .btn-whatsapp:hover {
+      background: #1da851;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37,211,102,0.35);
+    }
+    .btn-print {
+      background: var(--creme);
+      color: var(--preto);
+      border: 1.5px solid var(--cinza-200);
+    }
+    .btn-print:hover {
+      background: var(--cinza-200);
+      transform: translateY(-2px);
+    }
+    .btn-novo {
+      background: var(--terracota);
+      color: white;
+    }
+    .btn-novo:hover {
+      background: var(--terracota-h);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(196,98,45,0.35);
+    }
+
+    /* ════════════════════════════════════════
+       NAVEGAÇÃO ENTRE PASSOS
+    ════════════════════════════════════════ */
+    .nav-btns {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      justify-content: flex-end;
+    }
+    .btn-back, .btn-next {
+      padding: 0.75rem 1.75rem;
+      border-radius: 100px;
+      font-family: var(--f-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.25s var(--ease);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-back {
+      background: transparent;
+      color: var(--cinza-600);
+      border: 1.5px solid var(--cinza-200);
+    }
+    .btn-back:hover { border-color: var(--cinza-400); color: var(--preto); }
+    .btn-next {
+      background: var(--terracota);
+      color: white;
+    }
+    .btn-next:hover {
+      background: var(--terracota-h);
+      box-shadow: 0 4px 16px rgba(196,98,45,0.35);
+    }
+    .btn-next:disabled {
+      background: var(--cinza-200);
+      color: var(--cinza-400);
+      cursor: not-allowed;
+    }
+
+    /* ════════════════════════════════════════
+       SECTION DIVIDER
+    ════════════════════════════════════════ */
+    .divider {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cinza-400);
+      margin: 1.75rem 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--cinza-200);
+    }
+
+    /* ════════════════════════════════════════
+       TOOLTIP DE PRAZO
+    ════════════════════════════════════════ */
+    .prazo-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--verde);
+      background: var(--verde-cl);
+      border: 1px solid rgba(45,107,78,0.2);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      margin-top: 1rem;
+    }
+
+    /* ════════════════════════════════════════
+       PRINT STYLES
+    ════════════════════════════════════════ */
+    @media print {
+      .header, .progress-wrap, .nav-btns, .action-grid { display: none; }
+      .step-panel:not(.active) { display: none; }
+      .step-panel.active { display: block !important; }
+      body { background: white; }
+      .summary-card { background: #0A0A0A !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .action-grid { display: none !important; }
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+
+    /* TABLET SMALL (≤ 768px) */
+    @media (max-width: 768px) {
+      .header { padding: 1rem 1.25rem; }
+      .progress-wrap { padding: 1rem 1.25rem 1.5rem; }
+      .progress-steps { max-width: 100%; }
+      .main { padding: 1.5rem 1.25rem 3rem; }
+      .step-title { font-size: 1.6rem; }
+      .action-grid { grid-template-columns: 1fr 1fr; }
+      .summary-total { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+
+    /* MOBILE (≤ 580px) */
+    @media (max-width: 580px) {
+      .header { flex-direction: column; gap: 0.5rem; align-items: flex-start; padding: 0.85rem 1rem; }
+      .header-tag { font-size: 0.6rem; padding: 0.25rem 0.6rem; }
+      .progress-wrap { padding: 0.75rem 1rem 1.25rem; }
+      .step-dot { padding: 0 0.25rem; }
+      .step-label { display: none; }
+      .step-circle { width: 28px; height: 28px; font-size: 0.6rem; }
+      .main { padding: 1.25rem 0.75rem 2.5rem; margin: 0; }
+      .step-title { font-size: 1.35rem; }
+      .step-sub { font-size: 0.8rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .span-2 { grid-column: span 1; }
+      .service-cards { grid-template-columns: 1fr; }
+      .extras-grid { grid-template-columns: 1fr; }
+      .action-grid { grid-template-columns: 1fr; }
+      .urgency-btns { flex-direction: column; }
+      .nav-btns { flex-direction: column; }
+      .btn-back, .btn-next { width: 100%; text-align: center; padding: 0.85rem 1.5rem; }
+      .summary-client-name { font-size: 1.2rem; }
+      .summary-body { padding: 1.25rem; }
+      .total-amount { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════ HEADER ══════ -->
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="22 Studio — início">
+      <span class="logo-num">22</span>
+      <span class="logo-text">Studio</span>
+    </a>
+    <span class="header-tag">Orçamentador</span>
+  </header>
+
+  <!-- ══════ PROGRESS BAR ══════ -->
+  <div class="progress-wrap" aria-label="Progresso">
+    <div class="progress-steps" id="progressSteps">
+      <div class="step-dot active" data-step="1">
+        <div class="step-circle">1</div>
+        <span class="step-label">Cliente</span>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step-dot" data-step="2">
+        <div class="step-circle">2</div>
+        <span class="step-label">Serviço</span>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step-dot" data-step="3">
+        <div class="step-circle">3</div>
+        <span class="step-label">Extras</span>
+      </div>
+      <div class="step-line" id="line-3"></div>
+      <div class="step-dot" data-step="4">
+        <div class="step-circle">4</div>
+        <span class="step-label">Proposta</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ MAIN ══════ -->
+  <main class="main">
+
+    <!-- ════ PASSO 1 — DADOS DO CLIENTE ════ -->
+    <section class="step-panel active" id="step-1" aria-label="Dados do cliente">
+      <h2 class="step-title">Quem é o <em>cliente?</em></h2>
+      <p class="step-sub">Preenche os dados básicos para personalizar a proposta.</p>
+
+      <div class="form-grid">
+        <div class="form-group span-2">
+          <label class="form-label" for="clienteNome">Nome completo / Empresa</label>
+          <input type="text" id="clienteNome" class="form-input" placeholder="Ex: Restaurante Sabores de Luanda" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="clienteContacto">WhatsApp / Email</label>
+          <input type="text" id="clienteContacto" class="form-input" placeholder="+244 9XX..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="clienteArea">Área de negócio</label>
+          <select id="clienteArea" class="form-input form-select">
+            <option value="" disabled selected>Selecciona...</option>
+            <option>Restauração / Alimentação</option>
+            <option>Saúde / Clínica</option>
+            <option>Comércio / Retalho</option>
+            <option>Serviços Profissionais</option>
+            <option>Educação</option>
+            <option>Tecnologia / Startup</option>
+            <option>Logística / Transporte</option>
+            <option>ONG / Associação</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label" for="clienteObs">Observações iniciais (opcional)</label>
+          <input type="text" id="clienteObs" class="form-input" placeholder="Ex: Precisa de sistema integrado com Multicaixa..." />
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-next" id="next1" onclick="irParaPasso(2)">
+          Próximo — Serviço →
+        </button>
+      </div>
+    </section>
+
+    <!-- ════ PASSO 2 — TIPO DE SERVIÇO ════ -->
+    <section class="step-panel" id="step-2" aria-label="Tipo de serviço">
+      <h2 class="step-title">Que <em>serviço</em> precisa?</h2>
+      <p class="step-sub">Selecciona o tipo de projecto. O preço base será calculado automaticamente.</p>
+
+      <div class="service-cards" id="serviceCards">
+
+        <div class="service-card" data-id="landing" data-preco="45000" data-prazo="3-7 dias" onclick="seleccionarServico(this)">
+          <div class="card-check"></div>
+          <div class="card-icon">🎯</div>
+          <div class="card-name">Landing Page</div>
+          <div class="card-desc">Página única moderna para apresentação do negócio, produto ou evento.</div>
+          <div class="card-price">a partir de 45.000 Kz</div>
+        </div>
+
+        <div class="service-card" data-id="site" data-preco="120000" data-prazo="14-21 dias" onclick="seleccionarServico(this)">
+          <div class="card-check"></div>
+          <div class="card-icon">🏢</div>
+          <div class="card-name">Site Institucional</div>
+          <div class="card-desc">Site completo com múltiplas páginas, SEO e painel de gestão de conteúdo.</div>
+          <div class="card-price">a partir de 120.000 Kz</div>
+        </div>
+
+        <div class="service-card" data-id="ecommerce" data-preco="250000" data-prazo="21-35 dias" onclick="seleccionarServico(this)">
+          <div class="card-check"></div>
+          <div class="card-icon">🛒</div>
+          <div class="card-name">Loja Online</div>
+          <div class="card-desc">E-commerce com catálogo, carrinho e integração Multicaixa Express.</div>
+          <div class="card-price">a partir de 250.000 Kz</div>
+        </div>
+
+        <div class="service-card" data-id="sistema" data-preco="350000" data-prazo="30-60 dias" onclick="seleccionarServico(this)">
+          <div class="card-check"></div>
+          <div class="card-icon">📊</div>
+          <div class="card-name">Sistema de Gestão</div>
+          <div class="card-desc">Dashboard web para gestão de stock, clientes, vendas e relatórios.</div>
+          <div class="card-price">a partir de 350.000 Kz</div>
+        </div>
+
+        <div class="service-card" data-id="app" data-preco="500000" data-prazo="45-90 dias" onclick="seleccionarServico(this)">
+          <div class="card-check"></div>
+          <div class="card-icon">📱</div>
+          <div class="card-name">App Mobile</div>
+          <div class="card-desc">Aplicação Android/iOS com Flutter. Publicação na Play Store incluída.</div>
+          <div class="card-price">a partir de 500.000 Kz</div>
+        </div>
+
+        <div class="service-card" data-id="design" data-preco="35000" data-prazo="3-7 dias" onclick="seleccionarServico(this)">
+          <div class="card-check"></div>
+          <div class="card-icon">🎨</div>
+          <div class="card-name">Branding / UI Design</div>
+          <div class="card-desc">Logótipo, identidade visual, paleta de cores e guia de estilo.</div>
+          <div class="card-price">a partir de 35.000 Kz</div>
+        </div>
+
+      </div>
+
+      <div id="prazoInfo" class="prazo-info" style="display:none">
+        <span>🗓️</span>
+        <span id="prazoText">Prazo estimado: —</span>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irParaPasso(1)">← Anterior</button>
+        <button class="btn-next" id="next2" onclick="irParaPasso(3)" disabled>
+          Próximo — Extras →
+        </button>
+      </div>
+    </section>
+
+    <!-- ════ PASSO 3 — EXTRAS E URGÊNCIA ════ -->
+    <section class="step-panel" id="step-3" aria-label="Extras e urgência">
+      <h2 class="step-title">Adicionar <em>extras?</em></h2>
+      <p class="step-sub">Opções adicionais que aumentam o valor do projecto. Selecciona o que for necessário.</p>
+
+      <div class="extras-grid" id="extrasGrid">
+
+        <label class="extra-item" data-preco="15000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">🔍 SEO Avançado</span>
+            <span class="extra-price">+ 15.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="12000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">📧 Email Profissional</span>
+            <span class="extra-price">+ 12.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="20000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">🔐 Login / Área Privada</span>
+            <span class="extra-price">+ 20.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="18000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">📊 Google Analytics</span>
+            <span class="extra-price">+ 18.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="25000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">🗺️ Google Maps + Morada</span>
+            <span class="extra-price">+ 25.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="30000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">💬 Chat / WhatsApp Bot</span>
+            <span class="extra-price">+ 30.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="40000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">📄 Relatórios PDF Auto</span>
+            <span class="extra-price">+ 40.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="35000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">🔔 Notificações Push</span>
+            <span class="extra-price">+ 35.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="50000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">💳 Multicaixa Express</span>
+            <span class="extra-price">+ 50.000 Kz</span>
+          </span>
+        </label>
+
+        <label class="extra-item" data-preco="10000" onclick="toggleExtra(this)">
+          <span class="extra-checkbox"></span>
+          <span class="extra-info">
+            <span class="extra-name">🌐 Domínio .ao 1 ano</span>
+            <span class="extra-price">+ 10.000 Kz</span>
+          </span>
+        </label>
+
+      </div>
+
+      <p class="divider">Urgência do projecto</p>
+
+      <div class="urgency-btns" id="urgencyBtns">
+        <div class="urgency-btn selected" data-mult="1" onclick="seleccionarUrgencia(this)">
+          <div class="ub-icon">🐢</div>
+          <div class="ub-name">Normal</div>
+          <div class="ub-desc">Prazo standard</div>
+          <div class="ub-mult">× 1,0</div>
+        </div>
+        <div class="urgency-btn" data-mult="1.25" onclick="seleccionarUrgencia(this)">
+          <div class="ub-icon">⚡</div>
+          <div class="ub-name">Urgente</div>
+          <div class="ub-desc">Prazo –40%</div>
+          <div class="ub-mult">× 1,25</div>
+        </div>
+        <div class="urgency-btn" data-mult="1.5" onclick="seleccionarUrgencia(this)">
+          <div class="ub-icon">🚀</div>
+          <div class="ub-name">Express</div>
+          <div class="ub-desc">Prazo –60%</div>
+          <div class="ub-mult">× 1,5</div>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-back" onclick="irParaPasso(2)">← Anterior</button>
+        <button class="btn-next" onclick="gerarProposta(); irParaPasso(4)">
+          Gerar Proposta →
+        </button>
+      </div>
+    </section>
+
+    <!-- ════ PASSO 4 — PROPOSTA GERADA ════ -->
+    <section class="step-panel" id="step-4" aria-label="Proposta gerada">
+      <h2 class="step-title">Proposta <em>pronta.</em></h2>
+      <p class="step-sub">Partilha via WhatsApp, imprime em PDF ou guarda como referência.</p>
+
+      <!-- Card da proposta -->
+      <div class="summary-card" id="summaryCard">
+        <div class="summary-header">
+          <p class="summary-label">Proposta Comercial · 22 Studio</p>
+          <p class="summary-client-name" id="sumNome">—</p>
+          <p class="summary-ref" id="sumRef">REF-000 · Luanda, Angola</p>
+        </div>
+        <div class="summary-body">
+          <div class="summary-row">
+            <span class="row-label">Serviço principal</span>
+            <span class="row-value" id="sumServico">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Área de negócio</span>
+            <span class="row-value" id="sumArea">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Prazo estimado</span>
+            <span class="row-value" id="sumPrazo">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="row-label">Preço base</span>
+            <span class="row-value highlight" id="sumBase">—</span>
+          </div>
+
+          <!-- Extras seleccionados -->
+          <div class="summary-extras" id="sumExtrasWrap" style="display:none">
+            <p class="extras-title">Extras incluídos</p>
+            <div id="sumExtras"></div>
+          </div>
+
+          <div class="summary-row" id="sumUrgRow" style="display:none">
+            <span class="row-label">Taxa de urgência</span>
+            <span class="row-value highlight" id="sumUrg">—</span>
+          </div>
+        </div>
+
+        <div class="summary-total">
+          <div>
+            <div class="total-label">Total Estimado</div>
+            <div class="total-usd" id="sumUSD">≈ — USD</div>
+          </div>
+          <div style="text-align:right">
+            <div class="total-amount" id="sumTotal">0 Kz</div>
+          </div>
+        </div>
+
+        <div class="summary-footer">
+          <p class="summary-note"><strong>Validade:</strong> Este orçamento é válido por 15 dias a partir da data de emissão.</p>
+          <p class="summary-note"><strong>Pagamento:</strong> 50% no início do projecto · 50% na entrega final.</p>
+          <p class="summary-note"><strong>Contacto:</strong> hello@22studio.ao · +244 938 711 363</p>
+          <p class="summary-note" style="margin-top:0.5rem">Os preços apresentados são estimativas. O orçamento definitivo será confirmado após briefing detalhado.</p>
+        </div>
+      </div>
+
+      <!-- Botões de acção -->
+      <div class="action-grid">
+        <button class="action-btn btn-whatsapp" onclick="partilharWhatsApp()">
+          <span class="btn-icon">💬</span>
+          Enviar WhatsApp
+        </button>
+        <button class="action-btn btn-print" onclick="window.print()">
+          <span class="btn-icon">🖨️</span>
+          Imprimir / PDF
+        </button>
+        <button class="action-btn btn-novo" onclick="reiniciar()">
+          <span class="btn-icon">✦</span>
+          Novo Orçamento
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ════════════════════════════════════════
+       ESTADO GLOBAL DO ORÇAMENTADOR
+       Guarda todos os dados da sessão actual
+    ════════════════════════════════════════ */
+    const estado = {
+      passoActual: 1,
+      cliente: { nome: '', contacto: '', area: '', obs: '' },
+      servico: { id: '', nome: '', precoBase: 0, prazo: '' },
+      extras: [],        /* Array de { nome, preco } */
+      urgencia: { mult: 1, label: 'Normal' }
+    };
+
+    /* ════════════════════════════════════════
+       NAVEGAÇÃO ENTRE PASSOS
+    ════════════════════════════════════════ */
+    function irParaPasso(num) {
+      /* Validação do passo 1 */
+      if (num === 2) {
+        const nome = document.getElementById('clienteNome').value.trim();
+        if (!nome) {
+          document.getElementById('clienteNome').focus();
+          document.getElementById('clienteNome').style.borderColor = '#e24b4a';
+          setTimeout(() => document.getElementById('clienteNome').style.borderColor = '', 2000);
+          return;
+        }
+        /* Guardar dados do cliente */
+        estado.cliente.nome     = nome;
+        estado.cliente.contacto = document.getElementById('clienteContacto').value.trim();
+        estado.cliente.area     = document.getElementById('clienteArea').value;
+        estado.cliente.obs      = document.getElementById('clienteObs').value.trim();
+      }
+
+      /* Validação do passo 2 */
+      if (num === 3 && !estado.servico.id) return;
+
+      /* Actualizar visibilidade dos painéis */
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('step-' + num).classList.add('active');
+
+      /* Actualizar progress bar */
+      estado.passoActual = num;
+      actualizarProgress();
+
+      /* Scroll para o topo */
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function actualizarProgress() {
+      const dots  = document.querySelectorAll('.step-dot');
+      const lines = document.querySelectorAll('.step-line');
+
+      dots.forEach((dot, i) => {
+        const n = i + 1;
+        dot.classList.remove('active', 'done');
+        if (n < estado.passoActual) dot.classList.add('done');
+        if (n === estado.passoActual) dot.classList.add('active');
+      });
+
+      lines.forEach((line, i) => {
+        const n = i + 1;
+        line.classList.remove('done', 'active');
+        if (n < estado.passoActual) line.classList.add('done');
+        if (n === estado.passoActual) line.classList.add('active');
+      });
+    }
+
+    /* ════════════════════════════════════════
+       SELECÇÃO DE SERVIÇO
+    ════════════════════════════════════════ */
+    function seleccionarServico(card) {
+      /* Limpar selecção anterior */
+      document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+
+      /* Guardar no estado */
+      estado.servico.id       = card.dataset.id;
+      estado.servico.nome     = card.querySelector('.card-name').textContent;
+      estado.servico.precoBase = parseInt(card.dataset.preco);
+      estado.servico.prazo    = card.dataset.prazo;
+
+      /* Mostrar prazo */
+      const prazoInfo = document.getElementById('prazoInfo');
+      prazoInfo.style.display = 'flex';
+      document.getElementById('prazoText').textContent = 'Prazo estimado: ' + estado.servico.prazo;
+
+      /* Activar botão próximo */
+      document.getElementById('next2').disabled = false;
+    }
+
+    /* ════════════════════════════════════════
+       EXTRAS — toggle
+    ════════════════════════════════════════ */
+    function toggleExtra(item) {
+      item.classList.toggle('selected');
+      const nome  = item.querySelector('.extra-name').textContent;
+      const preco = parseInt(item.dataset.preco);
+
+      if (item.classList.contains('selected')) {
+        estado.extras.push({ nome, preco });
+      } else {
+        estado.extras = estado.extras.filter(e => e.nome !== nome);
+      }
+    }
+
+    /* ════════════════════════════════════════
+       URGÊNCIA
+    ════════════════════════════════════════ */
+    function seleccionarUrgencia(btn) {
+      document.querySelectorAll('.urgency-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      estado.urgencia.mult  = parseFloat(btn.dataset.mult);
+      estado.urgencia.label = btn.querySelector('.ub-name').textContent;
+    }
+
+    /* ════════════════════════════════════════
+       GERAR PROPOSTA — preenche o resumo
+    ════════════════════════════════════════ */
+    function gerarProposta() {
+      /* Calcular totais */
+      const totalExtras   = estado.extras.reduce((s, e) => s + e.preco, 0);
+      const subtotal      = estado.servico.precoBase + totalExtras;
+      const totalFinal    = Math.round(subtotal * estado.urgencia.mult);
+      const totalUSD      = (totalFinal / 900).toFixed(0);
+      const refNum        = 'REF-' + Date.now().toString().slice(-5);
+      const dataHoje      = new Date().toLocaleDateString('pt-PT');
+
+      /* Preencher campos do resumo */
+      document.getElementById('sumNome').textContent    = estado.cliente.nome || '—';
+      document.getElementById('sumRef').textContent     = refNum + ' · Luanda, ' + dataHoje;
+      document.getElementById('sumServico').textContent = estado.servico.nome;
+      document.getElementById('sumArea').textContent    = estado.cliente.area || 'Não especificada';
+      document.getElementById('sumPrazo').textContent   = estado.servico.prazo;
+      document.getElementById('sumBase').textContent    = formatarKz(estado.servico.precoBase);
+
+      /* Extras */
+      const extrasWrap = document.getElementById('sumExtrasWrap');
+      const extrasDiv  = document.getElementById('sumExtras');
+      if (estado.extras.length > 0) {
+        extrasWrap.style.display = 'block';
+        extrasDiv.innerHTML = estado.extras.map(e =>
+          `<div class="extra-row">
+            <span>${e.nome}</span>
+            <span class="extra-row-price">+ ${formatarKz(e.preco)}</span>
+          </div>`
+        ).join('');
+      } else {
+        extrasWrap.style.display = 'none';
+      }
+
+      /* Urgência */
+      const urgRow = document.getElementById('sumUrgRow');
+      if (estado.urgencia.mult > 1) {
+        urgRow.style.display = 'flex';
+        document.getElementById('sumUrg').textContent = 'Taxa ' + estado.urgencia.label + ' (×' + estado.urgencia.mult + ')';
+      } else {
+        urgRow.style.display = 'none';
+      }
+
+      /* Total */
+      document.getElementById('sumTotal').textContent = formatarKz(totalFinal);
+      document.getElementById('sumUSD').textContent   = '≈ ' + totalUSD + ' USD';
+
+      /* Guardar referência para partilha */
+      estado._ref       = refNum;
+      estado._total     = totalFinal;
+      estado._totalUSD  = totalUSD;
+      estado._data      = dataHoje;
+    }
+
+    /* ════════════════════════════════════════
+       PARTILHA VIA WHATSAPP
+    ════════════════════════════════════════ */
+    function partilharWhatsApp() {
+      const extras = estado.extras.length > 0
+        ? '\n🔹 Extras: ' + estado.extras.map(e => e.nome).join(', ')
+        : '';
+
+      const msg = `*Proposta Comercial — 22 Studio* ✦
+
+*Cliente:* ${estado.cliente.nome}
+*Serviço:* ${estado.servico.nome}
+*Prazo:* ${estado.servico.prazo}${extras}
+*Urgência:* ${estado.urgencia.label}
+
+💰 *Total Estimado: ${formatarKz(estado._total)}*
+_(≈ ${estado._totalUSD} USD)_
+
+📋 Ref: ${estado._ref} · ${estado._data}
+
+_Proposta válida por 15 dias._
+_Pagamento: 50% início · 50% entrega._
+
+22 Studio — Mestre Construtor Digital 🇦🇴
+📞 +244 938 711 363`;
+
+      const tel = estado.cliente.contacto.replace(/\D/g, '');
+      const url = tel
+        ? `https://wa.me/${tel}?text=${encodeURIComponent(msg)}`
+        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+
+    /* ════════════════════════════════════════
+       REINICIAR ORÇAMENTO
+    ════════════════════════════════════════ */
+    function reiniciar() {
+      /* Limpar estado */
+      estado.passoActual = 1;
+      estado.cliente     = { nome: '', contacto: '', area: '', obs: '' };
+      estado.servico     = { id: '', nome: '', precoBase: 0, prazo: '' };
+      estado.extras      = [];
+      estado.urgencia    = { mult: 1, label: 'Normal' };
+
+      /* Limpar formulários */
+      document.getElementById('clienteNome').value     = '';
+      document.getElementById('clienteContacto').value = '';
+      document.getElementById('clienteArea').value     = '';
+      document.getElementById('clienteObs').value      = '';
+
+      /* Limpar selecções */
+      document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.extra-item').forEach(i => i.classList.remove('selected'));
+      document.querySelectorAll('.urgency-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelector('.urgency-btn[data-mult="1"]').classList.add('selected');
+      document.getElementById('prazoInfo').style.display = 'none';
+      document.getElementById('next2').disabled = true;
+
+      irParaPasso(1);
+    }
+
+    /* ════════════════════════════════════════
+       UTILITÁRIOS
+    ════════════════════════════════════════ */
+    /* Formatar Kwanza com separadores correctos (PT) */
+    function formatarKz(valor) {
+      return valor.toLocaleString('pt-PT') + ' Kz';
+    }
+  </script>
+
+</body>
+</html>

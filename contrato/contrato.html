@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contrato de Prestação de Serviços — 22 Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════════════
+       CONTRATO DE PRESTAÇÃO DE SERVIÇOS
+       22 STUDIO — Template Legal
+       Versão: 1.0 · Luanda, Angola
+    ════════════════════════════════════════ */
+    :root {
+      --preto:     #0A0A0A;
+      --branco:    #FAFAF8;
+      --creme:     #F2EDE4;
+      --terracota: #C4622D;
+      --tc-cl:     #F2E6DC;
+      --cinza:     #6B6B65;
+      --cinza-200: #E8E6E0;
+      --cinza-100: #F5F4F0;
+      --f-display: 'Cormorant Garamond', Georgia, serif;
+      --f-body:    'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--f-body);
+      background: #E5E5E5;
+      color: var(--preto);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Barra de controlos (ecrã) */
+    .controls {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+    .ctrl-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 100px;
+      font-family: var(--f-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .ctrl-print { background: var(--preto); color: white; }
+    .ctrl-print:hover { background: var(--terracota); }
+    .ctrl-back { background: white; color: var(--preto); border: 1.5px solid var(--cinza-200); }
+    .ctrl-back:hover { border-color: var(--preto); }
+
+    /* ════════════════════════════════════════
+       PÁGINA A4
+    ════════════════════════════════════════ */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: white;
+      margin: 2rem auto;
+      padding: 0;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════
+       CABEÇALHO DO CONTRATO
+    ════════════════════════════════════════ */
+    .cont-header {
+      background: var(--preto);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .logo-num {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--terracota);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .logo-sub {
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.1rem;
+    }
+    .cont-ref { text-align: right; }
+    .cont-ref-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracota);
+    }
+    .cont-ref-date {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.2rem;
+    }
+
+    /* Título do contrato */
+    .cont-title-block {
+      background: var(--tc-cl);
+      padding: 1.5rem 2.5rem;
+      border-bottom: 2px solid var(--terracota);
+      text-align: center;
+    }
+    .cont-tipo {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 0.35rem;
+    }
+    .cont-titulo {
+      font-family: var(--f-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .cont-subtitulo {
+      font-size: 0.78rem;
+      color: var(--cinza);
+      margin-top: 0.3rem;
+    }
+
+    /* ════════════════════════════════════════
+       PARTES CONTRATANTES
+    ════════════════════════════════════════ */
+    .partes-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--cinza-200);
+    }
+    .parte-bloco {
+      padding: 1.25rem 2rem;
+    }
+    .parte-bloco:first-child {
+      border-right: 1px solid var(--cinza-200);
+      background: var(--cinza-100);
+    }
+    .parte-tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracota);
+      margin-bottom: 0.6rem;
+    }
+    .parte-nome {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+    .parte-detalhe {
+      font-size: 0.72rem;
+      color: var(--cinza);
+      line-height: 1.8;
+    }
+    .parte-detalhe strong { color: var(--preto); font-weight: 500; }
+
+    /* ════════════════════════════════════════
+       CORPO DO CONTRATO — CLÁUSULAS
+    ════════════════════════════════════════ */
+    .cont-body {
+      padding: 1.5rem 2.5rem;
+    }
+
+    /* Preâmbulo */
+    .preambulo {
+      background: var(--cinza-100);
+      border-left: 3px solid var(--terracota);
+      border-radius: 0 6px 6px 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.78rem;
+      color: var(--cinza);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .preambulo strong { color: var(--preto); }
+
+    /* Cláusula */
+    .clausula {
+      margin-bottom: 1.25rem;
+    }
+    .cl-titulo {
+      font-family: var(--f-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--preto);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .cl-num {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--terracota);
+      min-width: 2rem;
+    }
+    .cl-corpo {
+      font-size: 0.75rem;
+      color: var(--cinza);
+      line-height: 1.8;
+      padding-left: 2.5rem;
+    }
+    .cl-corpo p { margin-bottom: 0.35rem; }
+    .cl-corpo ul {
+      list-style: none;
+      margin: 0.35rem 0;
+    }
+    .cl-corpo ul li {
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.2rem;
+    }
+    .cl-corpo ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--terracota);
+    }
+
+    /* Campo editável */
+    [contenteditable="true"] {
+      outline: none;
+      border-bottom: 1px dashed var(--cinza-200);
+      min-width: 80px;
+      display: inline-block;
+    }
+    [contenteditable="true"]:focus {
+      border-bottom-color: var(--terracota);
+      background: rgba(196,98,45,0.04);
+    }
+
+    /* ════════════════════════════════════════
+       TABELA DE VALORES DO CONTRATO
+    ════════════════════════════════════════ */
+    table.cont-tabela {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      margin: 0.5rem 0 0.75rem;
+    }
+    table.cont-tabela thead tr { background: var(--preto); color: white; }
+    table.cont-tabela thead th {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    table.cont-tabela thead th:last-child { text-align: right; }
+    table.cont-tabela tbody tr { border-bottom: 1px solid var(--cinza-200); }
+    table.cont-tabela tbody td { padding: 0.5rem 0.75rem; }
+    table.cont-tabela tbody td:last-child { text-align: right; font-weight: 600; }
+    table.cont-tabela tfoot td {
+      padding: 0.6rem 0.75rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      background: var(--tc-cl);
+    }
+    table.cont-tabela tfoot td:last-child { color: var(--terracota); text-align: right; }
+
+    /* ════════════════════════════════════════
+       ASSINATURAS E DATA
+    ════════════════════════════════════════ */
+    .assinaturas {
+      border-top: 1px solid var(--cinza-200);
+      padding: 1.5rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    .ass-bloco {}
+    .ass-tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cinza);
+      margin-bottom: 2rem;
+    }
+    .ass-linha {
+      border-top: 1px solid var(--preto);
+      padding-top: 0.5rem;
+    }
+    .ass-nome { font-size: 0.78rem; font-weight: 600; }
+    .ass-cargo { font-size: 0.68rem; color: var(--cinza); }
+    .ass-data { font-size: 0.65rem; color: var(--cinza); margin-top: 0.25rem; }
+    .ass-nuit { font-size: 0.65rem; color: var(--cinza); margin-top: 0.1rem; }
+
+    /* ════════════════════════════════════════
+       RODAPÉ
+    ════════════════════════════════════════ */
+    .cont-footer {
+      background: var(--preto);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-txt {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.5;
+    }
+    .footer-txt strong { color: var(--terracota); }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE — Ecrã
+    ════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .page {
+        width: 96vw;
+        min-height: auto;
+        margin: 1rem auto;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      }
+      .cont-header { padding: 1.25rem 1rem; flex-direction: column; gap: 0.5rem; }
+      .cont-ref { text-align: left; }
+      .cont-title-block { padding: 1.25rem 1rem; }
+      .cont-titulo { font-size: 1.25rem; }
+      .partes-section { grid-template-columns: 1fr; }
+      .parte-bloco:first-child { border-right: none; border-bottom: 1px solid var(--cinza-200); }
+      .parte-bloco { padding: 1rem 1.25rem; }
+      .cont-body { padding: 1rem 1.25rem; }
+      .cl-num { min-width: 1.5rem; font-size: 0.9rem; }
+      .cl-corpo { padding-left: 0; font-size: 0.72rem; }
+      .cl-titulo { font-size: 0.88rem; }
+      table.cont-tabela { font-size: 0.7rem; }
+      table.cont-tabela thead th:nth-child(2) { display: none; }
+      table.cont-tabela tbody td:nth-child(2) { display: none; }
+      .assinaturas { padding: 1.25rem 1.5rem; grid-template-columns: 1fr; gap: 2rem; }
+      .cont-footer { padding: 0.75rem 1.25rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      .controls { bottom: 1rem; right: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .cont-header { padding: 1rem 0.75rem; }
+      .logo-num { font-size: 1.5rem; }
+      .cont-title-block { padding: 1rem 0.75rem; }
+      .cont-titulo { font-size: 1.1rem; }
+      .parte-bloco { padding: 0.85rem 1rem; }
+      .parte-nome { font-size: 1rem; }
+      .cont-body { padding: 0.85rem 1rem; }
+      .cl-titulo { font-size: 0.8rem; }
+      .cl-corpo { font-size: 0.68rem; }
+      table.cont-tabela { font-size: 0.65rem; display: block; overflow-x: auto; }
+      table.cont-tabela thead th { padding: 0.4rem 0.5rem; font-size: 0.5rem; }
+      table.cont-tabela tbody td { padding: 0.4rem 0.5rem; }
+      table.cont-tabela tfoot td { padding: 0.5rem; }
+      .assinaturas { padding: 1rem; }
+      .cont-footer { padding: 0.6rem 1rem; }
+    }
+
+    /* ════════════════════════════════════════
+       PRINT
+    ════════════════════════════════════════ */
+    @media print {
+      body { background: white; }
+      .controls { display: none !important; }
+      .page { width: 100%; margin: 0; box-shadow: none; }
+      [contenteditable="true"] { border-bottom: none; }
+      @page { margin: 0; size: A4; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Controlos -->
+  <div class="controls">
+    <button class="ctrl-btn ctrl-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+    <button class="ctrl-btn ctrl-back" onclick="window.history.back()">← Voltar</button>
+  </div>
+
+  <!-- ══════ PÁGINA A4 ══════ -->
+  <div class="page">
+
+    <!-- CABEÇALHO -->
+    <div class="cont-header">
+      <div>
+        <div class="logo-num">22</div>
+        <div class="logo-sub">Studio · Luanda, Angola</div>
+      </div>
+      <div class="cont-ref">
+        <div class="cont-ref-num">CONT-<span contenteditable="true">00001</span></div>
+        <div class="cont-ref-date">Luanda, <span contenteditable="true">28 de Março de 2025</span></div>
+      </div>
+    </div>
+
+    <!-- TÍTULO DO CONTRATO -->
+    <div class="cont-title-block">
+      <p class="cont-tipo">Documento Legal</p>
+      <h1 class="cont-titulo">Contrato de Prestação de Serviços</h1>
+      <p class="cont-subtitulo">Desenvolvimento Web, Mobile e/ou Design Digital · Angola</p>
+    </div>
+
+    <!-- PARTES CONTRATANTES -->
+    <div class="partes-section">
+      <div class="parte-bloco">
+        <p class="parte-tag">Primeira Parte — Prestador</p>
+        <p class="parte-nome">22 Studio</p>
+        <div class="parte-detalhe">
+          <strong>Representante:</strong> <span contenteditable="true">Nome do Representante</span><br>
+          <strong>NIF:</strong> <span contenteditable="true">00000000000</span><br>
+          <strong>Email:</strong> hello@22studio.ao<br>
+          <strong>Tel:</strong> +244 938 711 363<br>
+          <strong>Localização:</strong> Luanda, Angola
+        </div>
+      </div>
+      <div class="parte-bloco">
+        <p class="parte-tag">Segunda Parte — Cliente</p>
+        <p class="parte-nome" contenteditable="true">Nome da Empresa / Cliente</p>
+        <div class="parte-detalhe">
+          <strong>Representante:</strong> <span contenteditable="true">Nome do Responsável</span><br>
+          <strong>NIF:</strong> <span contenteditable="true">___________</span><br>
+          <strong>Email:</strong> <span contenteditable="true">email@empresa.com</span><br>
+          <strong>Tel:</strong> <span contenteditable="true">+244 9XX XXX XXX</span><br>
+          <strong>Localização:</strong> <span contenteditable="true">Luanda, Angola</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORPO DO CONTRATO -->
+    <div class="cont-body">
+
+      <!-- Preâmbulo -->
+      <div class="preambulo">
+        As partes acima identificadas, doravante designadas respectivamente por <strong>"Prestador"</strong> e <strong>"Cliente"</strong>, celebram entre si o presente Contrato de Prestação de Serviços, que se rege pelas cláusulas seguintes, em conformidade com a legislação angolana em vigor.
+      </div>
+
+      <!-- Cláusula 1 — Objecto -->
+      <div class="clausula">
+        <div class="cl-titulo">
+          <span class="cl-num">1.</span>
+          Objecto do Contrato
+        </div>
+        <div class="cl-corpo">
+          <p>O Prestador obriga-se a executar, para o Cliente, os seguintes serviços de desenvolvimento digital:</p>
+          <table class="cont-tabela">
+            <thead>
+              <tr>
+                <th style="width:45%">Serviço</th>
+                <th style="width:35%">Descrição resumida</th>
+                <th style="width:20%">Valor (Kz)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td contenteditable="true">Landing Page Premium</td>
+                <td contenteditable="true">Design mobile-first + animações</td>
+                <td contenteditable="true">80.000</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">SEO + Google Analytics</td>
+                <td contenteditable="true">Optimização e métricas</td>
+                <td contenteditable="true">15.000</td>
+              </tr>
+              <tr>
+                <td contenteditable="true">Domínio + Hosting 1 ano</td>
+                <td contenteditable="true">Alojamento e registo</td>
+                <td contenteditable="true">10.000</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">VALOR TOTAL DO CONTRATO</td>
+                <td contenteditable="true">105.000 Kz</td>
+              </tr>
+            </tfoot>
+          </table>
+          <p>O valor total é de <strong contenteditable="true">105.000 Kwanzas</strong> (<span contenteditable="true">cento e cinco mil Kwanzas</span>).</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 2 — Prazo -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">2.</span> Prazo de Execução</div>
+        <div class="cl-corpo">
+          <p>O Prestador compromete-se a entregar o projecto concluído no prazo máximo de <strong contenteditable="true">7 (sete) dias úteis</strong>, contados a partir da data de confirmação do pagamento inicial previsto na Cláusula 3.ª e da recepção de todos os materiais necessários fornecidos pelo Cliente (textos, imagens, logótipo, etc.).</p>
+          <p>Atrasos na entrega de materiais pelo Cliente poderão implicar a extensão proporcional do prazo de execução, sem penalização para o Prestador.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 3 — Pagamento -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">3.</span> Condições de Pagamento</div>
+        <div class="cl-corpo">
+          <ul>
+            <li><strong>50% no início:</strong> <span contenteditable="true">52.500 Kz</span> a pagar no momento da assinatura deste contrato e antes do início do trabalho.</li>
+            <li><strong>50% na entrega:</strong> <span contenteditable="true">52.500 Kz</span> a pagar após aprovação final pelo Cliente e antes da publicação/entrega do projecto.</li>
+          </ul>
+          <p>Métodos de pagamento aceites: Multicaixa Express · Transferência Bancária · TPA.<br>
+          Em caso de incumprimento do pagamento final, o Prestador reserva-se o direito de suspender o acesso ao projecto até regularização.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 4 — Revisões -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">4.</span> Revisões e Alterações</div>
+        <div class="cl-corpo">
+          <p>Estão incluídas no valor do contrato até <strong contenteditable="true">3 (três) revisões</strong> de conteúdo e design durante o desenvolvimento. Entende-se por revisão qualquer alteração ou conjunto de alterações comunicadas numa única solicitação.</p>
+          <p>Revisões adicionais serão cobradas à razão de <strong contenteditable="true">8.000 Kz por sessão de revisão</strong>, mediante aprovação prévia do Cliente.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 5 — Suporte pós-entrega -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">5.</span> Suporte Pós-Entrega</div>
+        <div class="cl-corpo">
+          <p>O Prestador garante suporte técnico gratuito durante <strong contenteditable="true">30 (trinta) dias</strong> após a entrega final, limitado a correcção de erros de funcionamento atribuíveis ao trabalho desenvolvido. O suporte é prestado via WhatsApp, em horário de Segunda a Sexta, das 08h às 18h.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 6 — Propriedade intelectual -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">6.</span> Propriedade Intelectual</div>
+        <div class="cl-corpo">
+          <p>Após o pagamento integral do valor contratado, todos os direitos de utilização do projecto entregue são transferidos para o Cliente. O Prestador reserva-se o direito de incluir o projecto no seu portfólio comercial, salvo acordo expresso em contrário.</p>
+          <p>O Cliente garante que todo o conteúdo fornecido (textos, imagens, logótipos) é da sua propriedade ou que possui autorização para o seu uso, isentando o Prestador de qualquer responsabilidade em matéria de direitos de autor.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 7 — Cancelamento -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">7.</span> Cancelamento e Rescisão</div>
+        <div class="cl-corpo">
+          <ul>
+            <li>O cancelamento antes do início do trabalho: reembolso integral do valor pago.</li>
+            <li>O cancelamento após início e antes de 50% do trabalho concluído: sem reembolso do valor inicial pago.</li>
+            <li>O cancelamento após 50% do trabalho concluído: pagamento do valor total contratado.</li>
+          </ul>
+          <p>O Prestador pode rescindir o contrato em caso de comportamento abusivo, falta de pagamento ou impossibilidade técnica insuperável, notificando o Cliente com pelo menos 3 dias de antecedência.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 8 — Confidencialidade -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">8.</span> Confidencialidade</div>
+        <div class="cl-corpo">
+          <p>Ambas as partes se comprometem a manter confidencialidade sobre informações sensíveis partilhadas durante a execução do contrato, nomeadamente dados financeiros, estratégias de negócio e informações de clientes do Cliente, durante um período de 2 anos após a conclusão do projecto.</p>
+        </div>
+      </div>
+
+      <!-- Cláusula 9 — Foro -->
+      <div class="clausula">
+        <div class="cl-titulo"><span class="cl-num">9.</span> Foro Competente</div>
+        <div class="cl-corpo">
+          <p>Para resolução de qualquer litígio emergente do presente contrato, as partes elegem o Tribunal Judicial da Comarca de Luanda, com renúncia expressa a qualquer outro. As partes comprometem-se, no entanto, a tentar resolver eventuais conflitos de forma amigável antes de recorrer a instâncias judiciais.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.75rem;color:var(--cinza);text-align:center;margin-top:0.5rem;padding-top:0.75rem;border-top:1px solid var(--cinza-200)">
+        O presente contrato é celebrado em duplicado, ficando cada parte com um exemplar. Lido e aprovado por ambas as partes.
+      </p>
+
+    </div>
+
+    <!-- ASSINATURAS -->
+    <div class="assinaturas">
+      <div class="ass-bloco">
+        <p class="ass-tag">Primeira Parte — Prestador</p>
+        <div class="ass-linha">
+          <div class="ass-nome">22 Studio</div>
+          <div class="ass-cargo" contenteditable="true">Director · Desenvolvimento Digital</div>
+          <div class="ass-data">Luanda, _____ / _____ / _________</div>
+          <div class="ass-nuit">NIF: <span contenteditable="true">___________</span></div>
+        </div>
+      </div>
+      <div class="ass-bloco">
+        <p class="ass-tag">Segunda Parte — Cliente</p>
+        <div class="ass-linha">
+          <div class="ass-nome" contenteditable="true">Nome do Responsável</div>
+          <div class="ass-cargo" contenteditable="true">Cargo · Empresa</div>
+          <div class="ass-data">Luanda, _____ / _____ / _________</div>
+          <div class="ass-nuit">NIF: <span contenteditable="true">___________</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="cont-footer">
+      <div class="footer-txt">
+        <strong>22 Studio</strong> · Desenvolvimento Web & Mobile · Luanda, Angola<br>
+        hello@22studio.ao · +244 938 711 363
+      </div>
+      <div class="footer-txt" style="text-align:right">
+        Contrato n.º CONT-<span contenteditable="true">00001</span><br>
+        Rege-se pela legislação angolana em vigor.
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+</body>
+</html>
