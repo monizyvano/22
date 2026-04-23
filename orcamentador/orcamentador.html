@@ -660,40 +660,14 @@
     /* ════════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════════ */
-
-    /* TABLET SMALL (≤ 768px) */
-    @media (max-width: 768px) {
-      .header { padding: 1rem 1.25rem; }
-      .progress-wrap { padding: 1rem 1.25rem 1.5rem; }
-      .progress-steps { max-width: 100%; }
-      .main { padding: 1.5rem 1.25rem 3rem; }
-      .step-title { font-size: 1.6rem; }
-      .action-grid { grid-template-columns: 1fr 1fr; }
-      .summary-total { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    }
-
-    /* MOBILE (≤ 580px) */
     @media (max-width: 580px) {
-      .header { flex-direction: column; gap: 0.5rem; align-items: flex-start; padding: 0.85rem 1rem; }
-      .header-tag { font-size: 0.6rem; padding: 0.25rem 0.6rem; }
-      .progress-wrap { padding: 0.75rem 1rem 1.25rem; }
-      .step-dot { padding: 0 0.25rem; }
-      .step-label { display: none; }
-      .step-circle { width: 28px; height: 28px; font-size: 0.6rem; }
-      .main { padding: 1.25rem 0.75rem 2.5rem; margin: 0; }
-      .step-title { font-size: 1.35rem; }
-      .step-sub { font-size: 0.8rem; }
       .form-grid { grid-template-columns: 1fr; }
       .form-grid .span-2 { grid-column: span 1; }
       .service-cards { grid-template-columns: 1fr; }
       .extras-grid { grid-template-columns: 1fr; }
       .action-grid { grid-template-columns: 1fr; }
       .urgency-btns { flex-direction: column; }
-      .nav-btns { flex-direction: column; }
-      .btn-back, .btn-next { width: 100%; text-align: center; padding: 0.85rem 1.5rem; }
-      .summary-client-name { font-size: 1.2rem; }
-      .summary-body { padding: 1.25rem; }
-      .total-amount { font-size: 1.5rem; }
+      .step-label { display: none; }
     }
   </style>
 </head>
@@ -785,52 +759,52 @@
 
       <div class="service-cards" id="serviceCards">
 
-        <div class="service-card" data-id="landing" data-preco="45000" data-prazo="3-7 dias" onclick="seleccionarServico(this)">
+        <div class="service-card" data-id="landing" data-preco="35000" data-prazo="3-7 dias" onclick="seleccionarServico(this)">
           <div class="card-check"></div>
           <div class="card-icon">🎯</div>
           <div class="card-name">Landing Page</div>
           <div class="card-desc">Página única moderna para apresentação do negócio, produto ou evento.</div>
-          <div class="card-price">a partir de 45.000 Kz</div>
+          <div class="card-price">a partir de 30.000 Kz</div>
         </div>
 
-        <div class="service-card" data-id="site" data-preco="120000" data-prazo="14-21 dias" onclick="seleccionarServico(this)">
+        <div class="service-card" data-id="site" data-preco="90000" data-prazo="14-21 dias" onclick="seleccionarServico(this)">
           <div class="card-check"></div>
           <div class="card-icon">🏢</div>
           <div class="card-name">Site Institucional</div>
           <div class="card-desc">Site completo com múltiplas páginas, SEO e painel de gestão de conteúdo.</div>
-          <div class="card-price">a partir de 120.000 Kz</div>
+          <div class="card-price">a partir de 90.000 Kz</div>
         </div>
 
-        <div class="service-card" data-id="ecommerce" data-preco="250000" data-prazo="21-35 dias" onclick="seleccionarServico(this)">
+        <div class="service-card" data-id="ecommerce" data-preco="220000" data-prazo="21-35 dias" onclick="seleccionarServico(this)">
           <div class="card-check"></div>
           <div class="card-icon">🛒</div>
           <div class="card-name">Loja Online</div>
           <div class="card-desc">E-commerce com catálogo, carrinho e integração Multicaixa Express.</div>
-          <div class="card-price">a partir de 250.000 Kz</div>
+          <div class="card-price">a partir de 220.000 Kz</div>
         </div>
 
-        <div class="service-card" data-id="sistema" data-preco="350000" data-prazo="30-60 dias" onclick="seleccionarServico(this)">
+        <div class="service-card" data-id="sistema" data-preco="300000" data-prazo="30-60 dias" onclick="seleccionarServico(this)">
           <div class="card-check"></div>
           <div class="card-icon">📊</div>
           <div class="card-name">Sistema de Gestão</div>
           <div class="card-desc">Dashboard web para gestão de stock, clientes, vendas e relatórios.</div>
-          <div class="card-price">a partir de 350.000 Kz</div>
+          <div class="card-price">a partir de 300.000 Kz</div>
         </div>
 
-        <div class="service-card" data-id="app" data-preco="500000" data-prazo="45-90 dias" onclick="seleccionarServico(this)">
+        <div class="service-card" data-id="app" data-preco="450000" data-prazo="45-90 dias" onclick="seleccionarServico(this)">
           <div class="card-check"></div>
           <div class="card-icon">📱</div>
           <div class="card-name">App Mobile</div>
           <div class="card-desc">Aplicação Android/iOS com Flutter. Publicação na Play Store incluída.</div>
-          <div class="card-price">a partir de 500.000 Kz</div>
+          <div class="card-price">a partir de 450.000 Kz</div>
         </div>
 
-        <div class="service-card" data-id="design" data-preco="35000" data-prazo="3-7 dias" onclick="seleccionarServico(this)">
+        <div class="service-card" data-id="design" data-preco="30000" data-prazo="3-7 dias" onclick="seleccionarServico(this)">
           <div class="card-check"></div>
           <div class="card-icon">🎨</div>
           <div class="card-name">Branding / UI Design</div>
           <div class="card-desc">Logótipo, identidade visual, paleta de cores e guia de estilo.</div>
-          <div class="card-price">a partir de 35.000 Kz</div>
+          <div class="card-price">a partir de 30.000 Kz</div>
         </div>
 
       </div>
@@ -911,7 +885,7 @@
           </span>
         </label>
 
-        <label class="extra-item" data-preco="35000" onclick="toggleExtra(this)">
+        <label class="extra-item" data-preco="30000" onclick="toggleExtra(this)">
           <span class="extra-checkbox"></span>
           <span class="extra-info">
             <span class="extra-name">🔔 Notificações Push</span>
@@ -1023,7 +997,7 @@
         <div class="summary-footer">
           <p class="summary-note"><strong>Validade:</strong> Este orçamento é válido por 15 dias a partir da data de emissão.</p>
           <p class="summary-note"><strong>Pagamento:</strong> 50% no início do projecto · 50% na entrega final.</p>
-          <p class="summary-note"><strong>Contacto:</strong> hello@22studio.ao · +244 938 711 363</p>
+          <p class="summary-note"><strong>Contacto:</strong> 22studio.ao@gmail.com · +244 931 313 465</p>
           <p class="summary-note" style="margin-top:0.5rem">Os preços apresentados são estimativas. O orçamento definitivo será confirmado após briefing detalhado.</p>
         </div>
       </div>
@@ -1241,7 +1215,7 @@ _Proposta válida por 15 dias._
 _Pagamento: 50% início · 50% entrega._
 
 22 Studio — Mestre Construtor Digital 🇦🇴
-📞 +244 938 711 363`;
+📞 +244 931 313 465`;
 
       const tel = estado.cliente.contacto.replace(/\D/g, '');
       const url = tel
